@@ -30,6 +30,9 @@
 #include <esp_system.h>
 #include <esp_wifi.h>
 #include <esp_ota_ops.h>
+#include <esp_timer.h>
+#include <mqtt_client.h>
+
 #include "esp_idf_lib_helpers.h"
 #if HELPER_TARGET_VERSION >= HELPER_TARGET_VERSION_ESP32_V4
 #include <esp_event.h>
@@ -188,13 +191,11 @@ static esp_err_t mqtt_event_handler_cb(esp_mqtt_event_handle_t event)
 
     switch (event->event_id)
     {
-#if HELPER_TARGET_IS_ESP32 > 0
     case MQTT_EVENT_BEFORE_CONNECT:
         ESP_LOGI(TAG, "MQTT_EVENT_BEFORE_CONNECT");
         break;
-#endif
 
-#if HELPER_TARGET_IS_ESP32 > 0 && HELPER_TARGET_VERSION >= HELPER_TARGET_VERSION_ESP32_V4
+#if ((HELPER_TARGET_IS_ESP32 > 0 && HELPER_TARGET_VERSION >= HELPER_TARGET_VERSION_ESP32_V4) || HELPER_TARGET_IS_ESP8266 > 0)
     case MQTT_EVENT_ANY:
         break;
 #endif

@@ -31,10 +31,7 @@ MQTT connection using the Homie convention, handle OTA, and little else.
 | SDK name           | Version      |
 |--------------------|--------------|
 | `ESP-IDF`          | 3.x or newer |
-| `ESP8266 RTOS SDK` | `master`     |
-
-ESP8266 RTOS SDK support is not stable, mostly due to the fact that the SDK is
-often far behind `esp-idf`. See "KNOWN BUGS".
+| `ESP8266 RTOS SDK` | `master` with the latest `esp-mqtt` |
 
 ## How to use
 
@@ -108,9 +105,9 @@ environment.
 
 When the SDK is ESP8266 RTOS SDK, logging over MQTT is not supported.
 
-When the SDK is ESP8266 RTOS SDK, MQTT connections often get lost because
-`esp-mqtt` in the SDK is not thread-safe
-([fix](https://github.com/espressif/esp-mqtt/commit/752953dc3be007cca4255b66a35d3087e61f6a54)).
+When the SDK is ESP8266 RTOS SDK,
+[`esp-mqtt`](https://github.com/espressif/esp-mqtt) must be used instead of
+bundled one in the SDK because the bundled version is broken.
 
 ## License
 
