@@ -1,13 +1,10 @@
-# `esp32-homie`
+# `esp-homie`
 
 An `ESP-IDF` component for the [Homie convention](https://github.com/homieiot/convention).
 
-[![Build Status](https://travis-ci.com/trombik/esp32-homie.svg?branch=homie4)](https://travis-ci.com/trombik/esp32-homie)
+[![Build Status](https://travis-ci.com/trombik/esp-homie.svg?branch=master)](https://travis-ci.com/trombik/esp-homie)
 
-## Goals
-
-This is alpha-level software. Pull requests are welcome! Here is where we're
-at:
+## Feature
 
 - [ ] Conforms to
   [4.x](https://homieiot.github.io/specification/spec-core-v4_0_0/) of the
@@ -17,13 +14,7 @@ at:
 - [x] Reboot by MQTT command topic
 - [x] Logging over MQTT
 - [x] Support for extendable nodes
-
-## Philosophy
-
-I believe a minimalist library is a better fit for the `ESP-IDF` ecosystem
-rather than a framework. I don't plan to include a captive portal, nor an
-inversion of program control. The scope of this library will be to manage the
-MQTT connection using the Homie convention, handle OTA, and little else.
+- [x] Support both `ESP32` and `ESP8266`
 
 ## Supported SDKs and versions
 
@@ -38,7 +29,7 @@ MQTT connection using the Homie convention, handle OTA, and little else.
 Clone this component to [ESP-IDF](https://github.com/espressif/esp-idf) project (as submodule):
 
 ```
-git submodule add https://github.com/craftmetrics/esp32-homie.git components/esp32-homie
+git submodule add https://github.com/craftmetrics/esp-homie.git components/esp-homie
 ```
 
 ## Example
@@ -50,14 +41,14 @@ Examples are under [examples](examples) directory.
 Some non-default variables must be set in `sdkconfig`.
 
 For `esp-idf` version 4.x, or master, see
-[`sdkconfig.defaults`](examples/esp32-homie-example/sdkconfig.defaults) and
-[`sdkconfig.defaults.esp32`](examples/esp32-homie-example/sdkconfig.defaults.esp32).
+[`sdkconfig.defaults`](examples/esp-homie-example/sdkconfig.defaults) and
+[`sdkconfig.defaults.esp32`](examples/esp-homie-example/sdkconfig.defaults.esp32).
 
 For `esp-idf` version 3.x, see
-[`sdkconfig.defaults.esp32_v3`](examples/esp32-homie-example/sdkconfig.defaults.esp32_v3).
+[`sdkconfig.defaults.esp32_v3`](examples/esp-homie-example/sdkconfig.defaults.esp32_v3).
 
 For ESP8266 RTOS SDK, see
-[`sdkconfig.defaults.esp8266`](examples/esp32-homie-example/sdkconfig.defaults.esp8266).
+[`sdkconfig.defaults.esp8266`](examples/esp-homie-example/sdkconfig.defaults.esp8266).
 
 ## OTA Updates
 
