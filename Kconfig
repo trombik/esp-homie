@@ -64,4 +64,9 @@ menu "Homie HTTP client"
             Maximum length, including NULL termination, of log message.
 
             This value must equal to, or be more than, HOMIE_MAX_MQTT_DATA_LEN.
+    config HOMIE_INFLUX_ENABLE
+        bool "Enable influx support for metrics"
+        default false
+        help
+            If true, enable `influx` output in metrics.
 endmenu

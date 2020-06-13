@@ -539,6 +539,11 @@ static esp_err_t homie_connected()
     char mac_address[] = "00:00:00:00:00:00";
     char ip_address[16];
     esp_chip_info_t chip_info;
+#if defined(CONFIG_HOMIE_INFLUX_ENABLE)
+    char supported_properties[] = "uptime,rssi,signal,freeheap,mac,ip,sdk,firmware,firmware-version,ota,reboot,rssi_influx,signal_influx,freeheap_influx";
+#else
+    char supported_properties[] = "uptime,rssi,signal,freeheap,mac,ip,sdk,firmware,firmware-version,ota,reboot";
+#endif
 
     ESP_ERROR_CHECK(homie_get_mac(mac_address, sizeof(mac_address), true));
     ESP_ERROR_CHECK(_get_ip(ip_address, sizeof(ip_address)));
@@ -566,7 +571,7 @@ static esp_err_t homie_connected()
     FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("$nodes", QOS_1, RETAINED, nodes));
     FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/$name", QOS_1, RETAINED, CHIP_NAME));
     FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publishf("esp/$type", QOS_1, RETAINED, "rev: %d", chip_info.revision));
-    FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/$properties", QOS_1, RETAINED, "uptime,rssi,signal,freeheap,mac,ip,sdk,firmware,firmware-version,ota,reboot"));
+    FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/$properties", QOS_1, RETAINED, supported_properties));
     FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/uptime/$name", QOS_1, RETAINED, "Uptime since boot"));
     FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/uptime/$datatype", QOS_1, RETAINED, "integer"));
     FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/rssi/$name", QOS_1, RETAINED, "WiFi RSSI"));
@@ -590,6 +595,16 @@ static esp_err_t homie_connected()
     FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/firmware-version/$name", QOS_1, RETAINED, "Firmware version"));
     FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/firmware-version/$datatype", QOS_1, RETAINED, "string"));
     FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/firmware-version", QOS_1, RETAINED, config->firmware_version));
+#if defined(CONFIG_HOMIE_INFLUX_ENABLE)
+    FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/uptime_influx/$name", QOS_1, RETAINED, "Uptime since boot in influx line protocol format"));
+    FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/uptime_influx/$datatype", QOS_1, RETAINED, "string"));
+    FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/rssi_influx/$name", QOS_1, RETAINED, "WiFi RSSI in influx line protocol format"));
+    FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/rssi_influx/$datatype", QOS_1, RETAINED, "string"));
+    FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/freeheap_influx/$name", QOS_1, RETAINED, "Free heap memory in influx line protocol format"));
+    FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/freeheap_influx/$datatype", QOS_1, RETAINED, "string"));
+    FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/signal_influx/$name", QOS_1, RETAINED, "Free heap memory in influx line protocol format"));
+    FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/signal_influx/$datatype", QOS_1, RETAINED, "string"));
+#endif
 
     /* topics that accept commands */
     FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/ota/$name", QOS_1, RETAINED, "OTA state"));
