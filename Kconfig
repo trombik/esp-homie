@@ -17,6 +17,11 @@ menu "Homie HTTP client"
             Currently supported versions:
               * 4.0.0
     endchoice
+    config HOMIE_LOCATION
+        string "the location of the device"
+        default "N/A"
+        help
+            The location of the device.
     config HOMIE_MAX_MQTT_TOPIC_LEN
         int "Max length of MQTT topic"
         default 512
