@@ -566,7 +566,7 @@ static esp_err_t homie_connected()
     FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("$nodes", QOS_1, RETAINED, nodes));
     FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/$name", QOS_1, RETAINED, CHIP_NAME));
     FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publishf("esp/$type", QOS_1, RETAINED, "rev: %d", chip_info.revision));
-    FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/$properties", QOS_1, RETAINED, "uptime,rssi,signal,freeheap,mac,ip,sdk,firmware,firmware-version,ota,reboot"));
+    FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/$properties", QOS_1, RETAINED, "uptime,rssi,signal,freeheap,mac,ip,sdk,firmware,firmware-version,location,ota,reboot"));
     FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/uptime/$name", QOS_1, RETAINED, "Uptime since boot"));
     FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/uptime/$datatype", QOS_1, RETAINED, "integer"));
     FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/rssi/$name", QOS_1, RETAINED, "WiFi RSSI"));
@@ -590,6 +590,9 @@ static esp_err_t homie_connected()
     FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/firmware-version/$name", QOS_1, RETAINED, "Firmware version"));
     FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/firmware-version/$datatype", QOS_1, RETAINED, "string"));
     FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/firmware-version", QOS_1, RETAINED, config->firmware_version));
+    FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/location/$name", QOS_1, RETAINED, "the location of the device"));
+    FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/location/$datatype", QOS_1, RETAINED, "string"));
+    FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/location", QOS_1, RETAINED, CONFIG_HOMIE_LOCATION));
 
     /* topics that accept commands */
     FAIL_IF_LESS_THAN_OR_EQUAL_ZERO(homie_publish("esp/ota/$name", QOS_1, RETAINED, "OTA state"));
